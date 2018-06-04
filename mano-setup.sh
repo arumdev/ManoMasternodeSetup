@@ -1,18 +1,18 @@
 #!/bin/bash
-# Reef Masternode Setup Script V1.3 for Ubuntu 16.04 LTS
-# (c) 2018 by Dwigt007 for Reef Coin
+# MANO Masternode Setup Script V1.3 for Ubuntu 16.04 LTS
+# (c) 2018 by Dwigt007 for Mano Coin
 #
-# Script will attempt to autodetect primary public IP address
+# Script will attempt to auto detect primary public IP address
 # and generate masternode private key unless specified in command line
 #
 # Usage:
-# bash reef-setup.sh [Masternode_Private_Key]
+# bash mano-setup.sh [Masternode_Private_Key]
 #
 # Example 1: Existing genkey created earlier is supplied
-# bash reef-setup.sh 27dSmwq9CabKjo2L3UD1HvgBP3ygbn8HdNmFiGFoVbN1STcsypy
+# bash mano-setup.sh 27dSmwq9CabKjo2L3UD1HvgBP3ygbn8HdNmFiGFoVbN1STcsypy
 #
 # Example 2: Script will generate a new genkey automatically
-# bash reef-setup.sh
+# bash mano-setup.sh
 #
 
 #Color codes
@@ -21,9 +21,9 @@ GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-#REEF TCP port
-PORT=9857
-RPC=9859
+#MANO TCP port
+PORT=5982
+RPC=5983
 
 #Clear keyboard input buffer
 function clear_stdin { while read -r -t 0; do read -r; done; }
@@ -33,17 +33,17 @@ function delay { echo -e "${GREEN}Sleep for $1 seconds...${NC}"; sleep "$1"; }
 
 #Stop daemon if it's already running
 function stop_daemon {
-    if pgrep -x 'reefd' > /dev/null; then
-        echo -e "${YELLOW}Attempting to stop reefd${NC}"
-        reef-cli stop
+    if pgrep -x 'manod' > /dev/null; then
+        echo -e "${YELLOW}Attempting to stop manod${NC}"
+        mano-cli stop
         delay 30
-        if pgrep -x 'reef' > /dev/null; then
-            echo -e "${RED}reefd daemon is still running!${NC} \a"
+        if pgrep -x 'mano' > /dev/null; then
+            echo -e "${RED}manod daemon is still running!${NC} \a"
             echo -e "${RED}Attempting to kill...${NC}"
-            pkill reefd
+            pkill manod
             delay 30
-            if pgrep -x 'reefd' > /dev/null; then
-                echo -e "${RED}Can't stop reefd! Reboot and try again...${NC} \a"
+            if pgrep -x 'manod' > /dev/null; then
+                echo -e "${RED}Can't stop manod! Reboot and try again...${NC} \a"
                 exit 2
             fi
         fi
@@ -55,7 +55,7 @@ genkey=$1
 
 clear
 
-echo -e "${YELLOW}Reef Masternode Setup Script V1.3 for Ubuntu 16.04 LTS${NC}"
+echo -e "${YELLOW}MANO Masternode Setup Script V1.3 for Ubuntu 16.04 LTS${NC}"
 echo -e "${GREEN}Updating system and installing required packages...${NC}"
 sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
 
@@ -83,13 +83,12 @@ sudo apt-get -y install wget nano htop jq
 sudo apt-get -y install libzmq3-dev
 sudo apt-get -y install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
 sudo apt-get -y install libevent-dev
-sudo apt-get instal zip unzip
-sudo apt -y install software-properties-common
-sudo add-apt-repository ppa:bitcoin/bitcoin -y
+sudo apt-get install zip unzip
+#sudo apt -y install software-properties-common
+#sudo add-apt-repository ppa:bitcoin/bitcoin -y
 sudo apt-get -y update
-sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
-sudo apt-get install unzip
-sudo apt-get -y install libminiupnpc-dev
+#sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
+#sudo apt-get -y install libminiupnpc-dev
 
 sudo apt-get -y install fail2ban
 sudo service fail2ban restart
@@ -109,7 +108,7 @@ echo -e "${YELLOW}"
 sudo ufw --force enable
 echo -e "${NC}"
 
-#Generating Random Password for reefd JSON RPC
+#Generating Random Password for manod JSON RPC
 rpcuser=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 rpcpassword=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 
@@ -135,39 +134,39 @@ fi
  #Installing Daemon
  cd ~
    wget https://github.com/reefcore/ReefCoin/releases/download/1.1/ubuntu16_mn.gz
-tar -xzf ubuntu16_mn.gz -C ~/ReefMasternodeSetup
+tar -xzf ubuntu16_mn.gz -C ~/ManoMasternodeSetup
 rm -rf ubuntu16_mn.gz
 
  
  stop_daemon
  
  # Deploy binaries to /usr/bin
- sudo cp ~/ReefMasternodeSetup/fix/reef* /usr/bin/
- sudo chmod 755 -R ~/ReefMasternodeSetup
- sudo chmod 755 /usr/bin/reef*
+ sudo cp ~/ManoMasternodeSetup/fix/mano* /usr/bin/
+ sudo chmod 755 -R ~/ManoMasternodeSetup
+ sudo chmod 755 /usr/bin/mano*
  
  # Deploy masternode monitoring script
- cp ~/ReefMasternodeSetup/nodemon.sh /usr/local/bin
+ cp ~/ManoMasternodeSetup/nodemon.sh /usr/local/bin
  sudo chmod 711 /usr/local/bin/nodemon.sh
  
- #Create reef datadir
- if [ ! -f ~/.reefcore/reef.conf ]; then 
- 	sudo mkdir ~/.reefcore
+ #Create mano datadir
+ if [ ! -f ~/.mano/mano.conf ]; then 
+ 	sudo mkdir ~/.mano
  fi
 
-echo -e "${YELLOW}Creating reef.conf...${NC}"
+echo -e "${YELLOW}Creating mano.conf...${NC}"
 
 # If genkey was not supplied in command line, we will generate private key on the fly
 if [ -z $genkey ]; then
-    cat <<EOF > ~/.reefcore/reef.conf
+    cat <<EOF > ~/.mano/mano.conf
 rpcuser=$rpcuser
 rpcpassword=$rpcpassword
 EOF
 
-    sudo chmod 755 -R ~/.reefcore/reef.conf
+    sudo chmod 755 -R ~/.mano/mano.conf
 
     #Starting daemon first time just to generate masternode private key
-    reefd -daemon
+    manod -daemon
     delay 30
 
     #Generate masternode private key
@@ -179,13 +178,13 @@ EOF
         exit 1
     fi
     
-    #Stopping daemon to create reef.conf
+    #Stopping daemon to create mano.conf
     stop_daemon
     delay 30
 fi
 
-# Create reef.conf
-cat <<EOF > ~/.reefcore/reef.conf
+# Create mano.conf
+cat <<EOF > ~/.mano/mano.conf
 rpcuser=$rpcuser
 rpcpassword=$rpcpassword
 rpcport=$RPC
@@ -194,24 +193,18 @@ onlynet=ipv4
 listen=1
 server=1
 daemon=1
-maxconnections=64
+maxconnections=200
 externalip=$publicip:$PORT
 masternode=1
 masternodeprivkey=$genkey
-addnode=107.174.47.174
-addnode=23.95.197.35
-addnode=198.23.228.235
-addnode=107.174.138.108 
-addnode=107.174.138.115 
-addnode=107.174.47.174 
 EOF
 
-#Finally, starting reef daemon with new reef.conf
-reefd --daemon
+#Finally, starting mano daemon with new mano.conf
+manod --daemon
 delay 5
 
-#Setting auto start cron job for reefd
-cronjob="@reboot sleep 30 && reefd"
+#Setting auto start cron job for manod
+cronjob="@reboot sleep 30 && manod"
 crontab -l > tempcron
 if ! grep -q "$cronjob" tempcron; then
     echo -e "${GREEN}Configuring crontab job...${NC}"
@@ -226,7 +219,7 @@ ${YELLOW}Masternode setup is complete!${NC}
 Masternode was installed with VPS IP Address: ${YELLOW}$publicip${NC}
 Masternode Private Key: ${YELLOW}$genkey${NC}
 Now you can add the following string to the masternode.conf file
-for your Hot Wallet (the wallet with your REEFCOIN collateral funds):
+for your Hot Wallet (the wallet with your MANO collateral funds):
 ======================================================================== \a"
 echo -e "${YELLOW}mn1 $publicip:$PORT $genkey TxId TxIdx${NC}"
 echo -e "========================================================================
@@ -264,7 +257,7 @@ Once completed step (2), return to this VPS console and wait for the
 Masternode Status to change to: 'Masternode successfully started'.
 This will indicate that your masternode is fully functional and
 you can celebrate this achievement!
-Currently your masternode is syncing with the REEF network...
+Currently your masternode is syncing with the MANO network...
 The following screen will display in real-time
 the list of peer connections, the status of your masternode,
 node synchronization status and additional network and node stats.
@@ -276,21 +269,21 @@ echo -e "
 ${GREEN}...scroll up to see previous screens...${NC}
 Here are some useful commands and tools for masternode troubleshooting:
 ========================================================================
-To view masternode configuration produced by this script in reef.conf:
-${YELLOW}cat ~/.reefcore/reef.conf${NC}
-Here is your reef.conf generated by this script:
+To view masternode configuration produced by this script in mano.conf:
+${YELLOW}cat ~/.mano/mano.conf${NC}
+Here is your mano.conf generated by this script:
 -------------------------------------------------${YELLOW}"
-cat ~/.reefcore/reef.conf
+cat ~/.mano/mano.conf
 echo -e "${NC}-------------------------------------------------
-NOTE: To edit reef.conf, first stop the reefd daemon,
-then edit the reef.conf file and save it in nano: (Ctrl-X + Y + Enter),
-then start the reefd daemon back up:
-             to stop:   ${YELLOW}reef-cli stop${NC}
-             to edit:   ${YELLOW}nano ~/.reefcore/reef.conf${NC}
-             to start:  ${YELLOW}reefd${NC}
+NOTE: To edit mano.conf, first stop the manod daemon,
+then edit the mano.conf file and save it in nano: (Ctrl-X + Y + Enter),
+then start the manpd daemon back up:
+             to stop:   ${YELLOW}mano-cli stop${NC}
+             to edit:   ${YELLOW}nano ~/.mano/mano.conf${NC}
+             to start:  ${YELLOW}manod${NC}
 ========================================================================
-To view Itis debug log showing all MN network activity in realtime:
-             ${YELLOW}tail -f ~/.reefcore/debug.log${NC}
+To view Mano debug log showing all MN network activity in realtime:
+             ${YELLOW}tail -f ~/.mano/debug.log${NC}
 ========================================================================
 To monitor system resource utilization and running processes:
                    ${YELLOW}htop${NC}
@@ -300,10 +293,10 @@ sync status etc. in real-time, run the nodemon.sh script:
                  ${YELLOW}nodemon.sh${NC}
 or just type 'node' and hit <TAB> to autocomplete script name.
 ========================================================================
-Enjoy your REEF Masternode and thanks for using this setup script!
+Enjoy your MANO Masternode and thanks for using this setup script!
 
 If you found this script useful, please donate to : 
-${GREEN}RCt6Es3BFvb1nFFchP3Z18KNnTKjcvEsQd${NC}
+${GREEN}wallet${NC}
 ...and make sure to check back for updates!
 Author: Dwigt007
 "
