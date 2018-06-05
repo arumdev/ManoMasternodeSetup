@@ -172,7 +172,7 @@ EOF
 
     #Generate masternode private key
     echo -e "${YELLOW}Generating masternode private key...${NC}"
-    genkey=$(reef-cli masternode genkey)
+    genkey=$(mano-cli masternode genkey)
     if [ -z "$genkey" ]; then
         echo -e "${RED}ERROR: Can not generate masternode private key.${NC} \a"
         echo -e "${RED}ERROR: Reboot VPS and try again or supply existing genkey as a parameter.${NC}"
@@ -201,11 +201,11 @@ masternodeprivkey=$genkey
 EOF
 
 #Finally, starting mano daemon with new mano.conf
-manod --daemon
+manod -daemon
 delay 5
 
 #Setting auto start cron job for manod
-cronjob="@reboot sleep 30 && manod"
+cronjob="@reboot sleep 30 && manod -daemon"
 crontab -l > tempcron
 if ! grep -q "$cronjob" tempcron; then
     echo -e "${GREEN}Configuring crontab job...${NC}"
