@@ -133,9 +133,10 @@ fi
 
  #Installing Daemon
  cd ~
- #  wget https://github.com/reefcore/ReefCoin/releases/download/1.1/ubuntu16_mn.gz
-#tar -xzf ubuntu16_mn.gz -C ~/ManoMasternodeSetup
-#rm -rf ubuntu16_mn.gz
+mkdir ~/ManoMasternodeSetup/mano
+wget https://github.com/Dwigt007/ManoMasternodeSetup/releases/download/v1%2C0/mano.tar.gz
+tar -xzf mano.tar.gz -C ~/ManoMasternodeSetup/mano
+rm -rf mano.tar.gz
 
  
  stop_daemon
