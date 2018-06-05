@@ -133,15 +133,15 @@ fi
 
  #Installing Daemon
  cd ~
-   wget https://github.com/reefcore/ReefCoin/releases/download/1.1/ubuntu16_mn.gz
-tar -xzf ubuntu16_mn.gz -C ~/ManoMasternodeSetup
-rm -rf ubuntu16_mn.gz
+ #  wget https://github.com/reefcore/ReefCoin/releases/download/1.1/ubuntu16_mn.gz
+#tar -xzf ubuntu16_mn.gz -C ~/ManoMasternodeSetup
+#rm -rf ubuntu16_mn.gz
 
  
  stop_daemon
  
  # Deploy binaries to /usr/bin
- sudo cp ~/ManoMasternodeSetup/fix/mano* /usr/bin/
+ sudo cp ~/ManoMasternodeSetup/mano/mano* /usr/bin/
  sudo chmod 755 -R ~/ManoMasternodeSetup
  sudo chmod 755 /usr/bin/mano*
  
