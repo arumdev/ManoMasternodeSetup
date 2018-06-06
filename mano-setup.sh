@@ -84,11 +84,11 @@ sudo apt-get -y install libzmq3-dev
 sudo apt-get -y install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
 sudo apt-get -y install libevent-dev
 sudo apt-get install zip unzip
-#sudo apt -y install software-properties-common
-#sudo add-apt-repository ppa:bitcoin/bitcoin -y
+sudo apt -y install software-properties-common
+sudo add-apt-repository ppa:bitcoin/bitcoin -y
 sudo apt-get -y update
-#sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
-#sudo apt-get -y install libminiupnpc-dev
+sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
+sudo apt-get -y install libminiupnpc-dev
 
 sudo apt-get -y install fail2ban
 sudo service fail2ban restart
@@ -101,7 +101,7 @@ sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow ssh
 sudo ufw allow $PORT/tcp
-sudo ufw allow 20025/tcp
+sudo ufw allow $RPC/tcp
 sudo ufw allow 22/tcp
 sudo ufw limit 22/tcp
 echo -e "${YELLOW}"
