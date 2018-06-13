@@ -56,34 +56,6 @@ else
 
 fi
 
- if [[ $(dpkg -I libevent-dev) == *INSTALLED* ]]; then
-   libevent-dev=INSTALLED
-else
-#DEPS INSTALL
-   echo -e "${GREEN}Updating system and installing required packages...${NC}"
-    sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
-sudo apt-get -y upgrade
-sudo apt-get -y dist-upgrade
-sudo apt-get -y autoremove
-sudo apt-get -y install wget nano htop jq
-sudo apt-get -y install libzmq3-dev
-sudo apt-get -y install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
-sudo apt-get -y install libevent-dev
-sudo apt-get install zip unzip
-sudo apt -y install software-properties-common
-sudo add-apt-repository ppa:bitcoin/bitcoin -y
-sudo apt-get -y update
-sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
-sudo apt-get -y install libminiupnpc-dev
-
-sudo apt-get -y install fail2ban
-sudo service fail2ban restart
-sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5
-
-    fi
-fi
-
-
 #Process command line parameters
 genkey=$1
 
@@ -123,11 +95,36 @@ else
         exit 1
     fi
 fi
+ if [[ $(apt-cache showpkg libevent-dev) == *2.0.21-stable-2ubuntu0.16.04.1* ]]; then
+   package=2.0.21-stable-2ubuntu0.16.04.1
+else
+#DEPS INSTALL
+   echo -e "${GREEN}Updating system and installing required packages...${NC}"
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
+sudo apt-get -y autoremove
+sudo apt-get -y install wget nano htop jq
+sudo apt-get -y install libzmq3-dev
+sudo apt-get -y install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
+sudo apt-get -y install libevent-dev
+sudo apt-get install zip unzip
+sudo apt -y install software-properties-common
+sudo add-apt-repository ppa:bitcoin/bitcoin -y
+sudo apt-get -y update
+sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
+sudo apt-get -y install libminiupnpc-dev
 
-# update packages and upgrade Ubuntu
+sudo apt-get -y install fail2ban
+sudo service fail2ban restart
+sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5
+
+    fi
+
+
+#Install Ports
 sudo apt-get install ufw -y
 sudo apt-get update -y
-
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow ssh
