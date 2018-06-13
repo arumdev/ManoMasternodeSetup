@@ -95,10 +95,8 @@ else
         exit 1
     fi
 fi
- if [[ $(apt-cache showpkg libevent-dev) == *2.0.21-stable-2ubuntu0.16.04.1* ]]; then
-   package=2.0.21-stable-2ubuntu0.16.04.1
-else
-#DEPS INSTALL
+ if ["$(apt policy libzmq3-dev)" = ""]; then
+
    echo -e "${GREEN}Updating system and installing required packages...${NC}"
     sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
 sudo apt-get -y upgrade
