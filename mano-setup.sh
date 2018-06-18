@@ -257,7 +257,7 @@ into your ${YELLOW}masternode.conf${NC} file and replace:
     ${YELLOW}TxId${NC} - with Transaction Id from masternode outputs
     ${YELLOW}TxIdx${NC} - with Transaction Index (0 or 1)
      Remember to save the masternode.conf and restart the wallet!
-To introduce your new masternode to the Itis network, you need to
+To introduce your new masternode to the MANO network, you need to
 issue a masternode start command from your wallet, which proves that
 the collateral for this node is secured."
 
@@ -323,7 +323,7 @@ or just type 'node' and hit <TAB> to autocomplete script name.
 Enjoy your MANO Masternode and thanks for using this setup script!
 
 If you found this script useful, please donate to : 
-${GREEN}wallet${NC}
+${GREEN}no donations at this time ${NC}
 ...and make sure to check back for updates!
 Author: Dwigt007
 "
