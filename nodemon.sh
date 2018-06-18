@@ -11,7 +11,7 @@ dpkg -s jq 2>/dev/null >/dev/null || sudo apt-get -y install jq
 
 #It is a one-liner script for now
 watch -ptn $dly "echo '===========================================================================
-Outbound connections to other MANO nodes [reef datadir: $datadir]
+Outbound connections to other MANO nodes [MANO datadir: $datadir]
 ===========================================================================
 Node IP               Ping    Rx/Tx     Since  Hdrs   Height  Time   Ban
 Address               (ms)   (KBytes)   Block  Syncd  Blocks  (min)  Score
@@ -29,5 +29,5 @@ echo '==========================================================================
 echo 'Masternode Information: \n# mano-cli getinfo' && mano-cli -datadir=$datadir getinfo
 echo '==========================================================================='
 echo 'Usage: nodemon.sh [refresh delay] [datadir index]'
-echo 'Example: nodemon.sh 10 22 will run every 10 seconds and query reefd in /$USER/.mano22'
+echo 'Example: nodemon.sh 10 22 will run every 10 seconds and query manod in /$USER/.mano22'
 echo '\n\nPress Ctrl-C to Exit...'"
