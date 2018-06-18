@@ -63,7 +63,7 @@ genkey=$1
 clear
 
 echo -e "${YELLOW}MANO Coin Masternode Setup Script V1.5 for Ubuntu 16.04 LTS${NC}"
-echo "Do you want me to generate a masternode private key for you?"
+echo "Do you want me to generate a masternode private key for you? [y/n]"
   read DOSETUP
 if [[ $DOSETUP =~ "n" ]] ; then
           read -e -p "Enter your private key:" genkey;
@@ -78,10 +78,6 @@ else
 fi
 sleep .5
 clear
-
-#Starting Install
-echo -e "${GREEN}Updating system and installing required packages...${NC}"
-sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
 
 # Determine primary public IP address
 dpkg -s dnsutils 2>/dev/null >/dev/null || sudo apt-get -y install dnsutils
