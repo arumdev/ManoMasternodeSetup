@@ -1,5 +1,5 @@
 #!/bin/bash
-# nodemon 1.0 - Reef Masternode Monitoring 
+# manomon 1.0 - Mano Masternode Monitoring 
 
 #Processing command line params
 if [ -z $1 ]; then dly=1; else dly=$1; fi   # Default refresh time is 1 sec
@@ -28,6 +28,6 @@ echo 'Sync Status: \n# mano-cli mnsync status' &&  mano-cli -datadir=$datadir mn
 echo '==========================================================================='
 echo 'Masternode Information: \n# mano-cli getinfo' && mano-cli -datadir=$datadir getinfo
 echo '==========================================================================='
-echo 'Usage: nodemon.sh [refresh delay] [datadir index]'
-echo 'Example: nodemon.sh 10 22 will run every 10 seconds and query manod in /$USER/.mano22'
+echo 'Usage: manomon.sh [refresh delay] [datadir index]'
+echo 'Example: manomon.sh 10 22 will run every 10 seconds and query manod in /$USER/.mano22'
 echo '\n\nPress Ctrl-C to Exit...'"
