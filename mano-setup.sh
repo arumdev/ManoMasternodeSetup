@@ -172,8 +172,8 @@ rm -rf mano.tar.gz
  sudo chmod 755 /usr/bin/mano*
  
  # Deploy masternode monitoring script
- cp ~/ManoMasternodeSetup/nodemon.sh /usr/local/bin
- sudo chmod 711 /usr/local/bin/nodemon.sh
+ cp ~/ManoMasternodeSetup/manomon.sh /usr/local/bin
+ sudo chmod 711 /usr/local/bin/manomon.sh
  
  #Create mano datadir
  if [ ! -f ~/.mano/mano.conf ]; then 
