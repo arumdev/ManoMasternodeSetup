@@ -216,7 +216,16 @@ EOF
 
     #Starting daemon first time just to generate masternode private key
     manod -daemon
-    delay 60
+echo -ne '[##                 ] (15%)\r'
+sleep 6
+echo -ne '[######             ] (30%)\r'
+sleep 9
+echo -ne '[########           ] (45%)\r'
+sleep 6
+echo -ne '[##############     ] (72%)\r'
+sleep 10
+echo -ne '[###################] (100%)\r'
+echo -ne '\n'
 
     #Generate masternode private key
     echo -e "${YELLOW}Generating masternode private key...${NC}"
@@ -229,7 +238,6 @@ EOF
     
     #Stopping daemon to create mano.conf
     stop_daemon
-    delay 30
 fi
 
 # Create mano.conf
