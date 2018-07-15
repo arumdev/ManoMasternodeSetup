@@ -182,9 +182,9 @@ fi
  #Installing Daemon
  cd ~
 mkdir ~/ManoMasternodeSetup/mano
-wget https://github.com/Dwigt007/ManoMasternodeSetup/releases/download/v1%2C0/mano.tar.gz
-tar -xzf mano.tar.gz -C ~/ManoMasternodeSetup/mano
-rm -rf mano.tar.gz
+wget https://github.com/MasternodeFoundation/MANOcoin/releases/download/v1.0.1/MANO-bin-linux64.tar.gz
+tar -xzf MANO-bin-linux64.tar.gz -C ~/ManoMasternodeSetup/mano
+rm -rf MANO-bin-linux64.tar.gz
 
  
  stop_daemon
