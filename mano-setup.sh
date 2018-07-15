@@ -181,16 +181,15 @@ fi
 
  #Installing Daemon
  cd ~
-mkdir ~/ManoMasternodeSetup/mano
 wget https://github.com/MasternodeFoundation/MANOcoin/releases/download/v1.0.1/MANO-bin-linux64.tar.gz
-tar -xzf MANO-bin-linux64.tar.gz -C ~/ManoMasternodeSetup/mano
+tar -xzf MANO-bin-linux64.tar.gz -C ~/ManoMasternodeSetup
 rm -rf MANO-bin-linux64.tar.gz
 
  
  stop_daemon
  
  # Deploy binaries to /usr/bin
- sudo cp ~/ManoMasternodeSetup/mano/mano* /usr/bin/
+ sudo cp ~/ManoMasternodeSetup/MANO-bin/mano* /usr/bin/
  sudo chmod 755 -R ~/ManoMasternodeSetup
  sudo chmod 755 /usr/bin/mano*
  
